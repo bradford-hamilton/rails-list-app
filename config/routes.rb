@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  get :dashboard, controller: :list_item, action: :index
+  resources :lists, controller: :list_item, param: :id
 end

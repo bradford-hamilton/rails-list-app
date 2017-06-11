@@ -1,0 +1,26 @@
+{
+  "name": "list_app",
+  "version": "1.0.0",
+  "description": "List App",
+  "main": "application.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "react": "^15.5.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bradford-hamilton/rails-list-app.git"
+  },
+  "author": "Bradford Lamson-Scribner",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bradford-hamilton/rails-list-app/issues"
+  },
+  "homepage": "https://github.com/bradford-hamilton/rails-list-app#readme"
+}
