@@ -9,7 +9,7 @@ class ListItemController < ApplicationController
   end
 
   def create
-
+    @list_item = ListItem.create(name: params[:value], list_id: params[:list_id])
   end
 
 end
