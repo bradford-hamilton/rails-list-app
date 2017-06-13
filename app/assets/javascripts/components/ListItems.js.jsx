@@ -11,6 +11,10 @@ class ListItems extends React.Component {
     this.addItemToList = this.addItemToList.bind(this);
   }
 
+  componentDidMount() {
+
+  }
+
   get ListName() {
     return <h3>{this.props.list.name}</h3>;
   }
@@ -28,7 +32,7 @@ class ListItems extends React.Component {
   addItemToList(e) {
     e.preventDefault();
 
-    axios.post('http://localhost:3000/lists', this.state)
+    return axios.post('http://localhost:3000/lists', this.state)
       .then((response) => {
         console.log(response);
       })

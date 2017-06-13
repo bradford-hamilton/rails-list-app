@@ -9,7 +9,12 @@ class ListItemController < ApplicationController
   end
 
   def create
-    @list_item = ListItem.create(name: params[:value], list_id: params[:list_id])
+    ListItem.create(name: params['value'], list_id: params['list_id'])
+    render json: "Successfully added list item."
   end
 
+  def all_list_items
+    list_items = ListItem.where("list_id = #{params[:id]}").to_json
+    render json: list_items
+  end
 end
