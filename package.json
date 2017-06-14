@@ -7,7 +7,7 @@
     "test": "test"
   },
   "dependencies": {
-    "react": "^15.5.4"
+    "react": "15.4.2"
   },
   "devDependencies": {},
   "scripts": {

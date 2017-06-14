@@ -14,7 +14,7 @@ class ListItemController < ApplicationController
   end
 
   def all_list_items
-    list_items = ListItem.where("list_id = #{params[:id]}").to_json
+    list_items = ListItem.where("list_id = #{params[:id]}")
     render json: list_items
   end
 end

@@ -4,7 +4,8 @@ class ListItems extends React.Component {
 
     this.state = {
       value: '',
-      list_id: props.list.id
+      list_id: props.list.id,
+      listItems: []
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -12,7 +13,13 @@ class ListItems extends React.Component {
   }
 
   componentDidMount() {
-
+    return axios.get(`http://localhost:3000/all_list_items?id=${this.state.list_id}`)
+      .then((res) => {
+        this.setState({ listItems: res.data });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   get ListName() {
@@ -20,7 +27,7 @@ class ListItems extends React.Component {
   }
 
   get ListItems() {
-    return this.props.listItems.map((item, i) => {
+    return this.state.listItems.map((item, i) => {
       return <li key={i}>{item.name}</li>;
     });
   }
@@ -50,7 +57,7 @@ class ListItems extends React.Component {
         </ol>
         <form onSubmit={this.addItemToList}>
           <div className="form-group">
-            <label htmlFor="listItem">Add some shit lil nigga</label>
+            <label htmlFor="listItem">Add item to list</label>
             <input
               type="text"
               className="form-control"
