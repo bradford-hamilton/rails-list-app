@@ -8,12 +8,13 @@ class ListItems extends React.Component {
       listItems: []
     };
 
+    this.baseUrl = 'http://localhost:3000' // TODO: change this
     this.handleInputChange = this.handleInputChange.bind(this);
     this.addItemToList = this.addItemToList.bind(this);
   }
 
   componentDidMount() {
-    return axios.get(`http://localhost:3000/all_list_items?id=${this.state.list_id}`)
+    axios.get(`${this.baseUrl}/all_list_items?id=${this.state.list_id}`)
       .then((res) => {
         this.setState({ listItems: res.data });
       })
@@ -28,8 +29,29 @@ class ListItems extends React.Component {
 
   get ListItems() {
     return this.state.listItems.map((item, i) => {
-      return <li key={i}>{item.name}</li>;
+      let itemName = item.name;
+
+      return (
+        <li key={i}>
+          {itemName}
+          <a onClick={(e) => this.deleteListItem(e, itemName)}> delete?</a>
+        </li>
+      )
     });
+  }
+
+  deleteListItem(e, itemName) {
+    e.preventDefault();
+
+    axios.delete(`${this.baseUrl}/lists/${itemName}`)
+      .then(() => {
+        let updatedListItems = this.state.listItems.filter((item) => item.name !== itemName);
+
+        this.setState({ listItems: updatedListItems });
+      })
+      .catch((err) => {
+        console.log(err)
+      });
   }
 
   handleInputChange(e) {
@@ -39,9 +61,16 @@ class ListItems extends React.Component {
   addItemToList(e) {
     e.preventDefault();
 
-    return axios.post('http://localhost:3000/lists', this.state)
-      .then((response) => {
-        console.log(response);
+    // Deep copy
+    let stateClone = jQuery.extend(true, {}, this.state);
+    stateClone.value = stateClone.value.trim();
+
+    axios.post(`${this.baseUrl}/lists`, stateClone)
+      .then(() => {
+        this.setState({
+          listItems: this.state.listItems.concat([{ name: this.state.value }]),
+          value: ''
+        });
       })
       .catch((error) => {
         console.log(error);
