@@ -30,22 +30,23 @@ class ListItems extends React.Component {
   get ListItems() {
     return this.state.listItems.map((item, i) => {
       let itemName = item.name;
+      let itemId = item.id;
 
       return (
         <li key={i}>
           {itemName}
-          <a onClick={(e) => this.deleteListItem(e, itemName)}> delete?</a>
+          <a onClick={(e) => this.deleteListItem(e, itemId)}> delete?</a>
         </li>
       )
     });
   }
 
-  deleteListItem(e, itemName) {
+  deleteListItem(e, itemId) {
     e.preventDefault();
 
-    axios.delete(`${this.baseUrl}/lists/${itemName}`)
+    axios.delete(`${this.baseUrl}/lists/${itemId}`)
       .then(() => {
-        let updatedListItems = this.state.listItems.filter((item) => item.name !== itemName);
+        let updatedListItems = this.state.listItems.filter((item) => item.id !== itemId);
 
         this.setState({ listItems: updatedListItems });
       })
@@ -65,16 +66,22 @@ class ListItems extends React.Component {
     let stateClone = jQuery.extend(true, {}, this.state);
     stateClone.value = stateClone.value.trim();
 
-    axios.post(`${this.baseUrl}/lists`, stateClone)
-      .then(() => {
-        this.setState({
-          listItems: this.state.listItems.concat([{ name: this.state.value }]),
-          value: ''
-        });
-      })
-      .catch((error) => {
-        console.log(error);
+    axios({
+      method: 'POST',
+      url: `${this.baseUrl}/lists`,
+      data: stateClone
+    })
+    .then((res) => {
+      this.setState({
+        listItems: this.state.listItems.concat(
+          [{ name: this.state.value, id: res.data.id }]
+        ),
+        value: ''
       });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   render() {
