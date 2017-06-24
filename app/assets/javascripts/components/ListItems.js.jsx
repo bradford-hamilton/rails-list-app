@@ -41,20 +41,6 @@ class ListItems extends React.Component {
     });
   }
 
-  deleteListItem(e, itemId) {
-    e.preventDefault();
-
-    axios.delete(`${this.baseUrl}/lists/${itemId}`)
-      .then(() => {
-        let updatedListItems = this.state.listItems.filter((item) => item.id !== itemId);
-
-        this.setState({ listItems: updatedListItems });
-      })
-      .catch((err) => {
-        console.log(err)
-      });
-  }
-
   handleInputChange(e) {
     this.setState({ value: e.target.value });
   }
@@ -68,7 +54,7 @@ class ListItems extends React.Component {
 
     axios({
       method: 'POST',
-      url: `${this.baseUrl}/lists`,
+      url: `${this.baseUrl}/list_items`,
       data: stateClone
     })
     .then((res) => {
@@ -82,6 +68,20 @@ class ListItems extends React.Component {
     .catch((error) => {
       console.log(error);
     });
+  }
+
+  deleteListItem(e, itemId) {
+    e.preventDefault();
+
+    axios.delete(`${this.baseUrl}/list_items/${itemId}`)
+      .then(() => {
+        let updatedListItems = this.state.listItems.filter((item) => item.id !== itemId);
+
+        this.setState({ listItems: updatedListItems });
+      })
+      .catch((err) => {
+        console.log(err)
+      });
   }
 
   render() {

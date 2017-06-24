@@ -1,11 +1,6 @@
 class ListItemController < ApplicationController
-  def index
-    @list = List.all
-  end
-
   def show
     @list = List.find(params[:id])
-    @list_item = ListItem.where("list_id = #{params[:id]}")
   end
 
   def create
@@ -17,13 +12,13 @@ class ListItemController < ApplicationController
   end
 
   def destroy
-    itemId = ListItem.where(id: params[:id])[0].id
+    itemId = ListItem.find(params[:id]).id
     ListItem.destroy(itemId)
     render json: "Successfully deleted ListItem record with name: #{params[:id]}"
   end
 
   def all_list_items
-    list_items = ListItem.where("list_id = #{params[:id]}")
+    list_items = ListItem.where(list_id: params[:id])
     render json: list_items
   end
 
