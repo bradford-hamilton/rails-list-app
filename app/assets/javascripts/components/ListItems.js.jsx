@@ -48,8 +48,11 @@ class ListItems extends React.Component {
   addItemToList(e) {
     e.preventDefault();
 
+    if (this.state.value.trim() === '') return;
+
     // Deep copy
     let stateClone = jQuery.extend(true, {}, this.state);
+
     stateClone.value = stateClone.value.trim();
 
     axios({
