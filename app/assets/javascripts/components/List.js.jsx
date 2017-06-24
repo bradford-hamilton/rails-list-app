@@ -50,8 +50,11 @@ class List extends React.Component {
   addList(e) {
     e.preventDefault();
 
+    if (this.state.value.trim() === '') return;
+
     // Deep copy
     let stateClone = jQuery.extend(true, {}, this.state);
+
     stateClone.value = stateClone.value.trim();
 
     axios({
@@ -89,6 +92,7 @@ class List extends React.Component {
   render() {
     return (
       <div>
+        <h3>Lists</h3>
         <ol>{this.Lists}</ol>
         <form onSubmit={this.addItemToList}>
           <div className="form-group">
