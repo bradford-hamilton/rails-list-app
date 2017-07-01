@@ -7,7 +7,7 @@ class List extends React.Component {
       lists: []
     };
 
-    this.baseUrl = 'http://localhost:3000' // TODO: change this
+    this.baseUrl = 'https://railslistapp.herokuapp.com' // TODO: change this
     this.directToList = this.directToList.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.addList = this.addList.bind(this);

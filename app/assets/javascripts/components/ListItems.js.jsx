@@ -8,7 +8,7 @@ class ListItems extends React.Component {
       listItems: []
     };
 
-    this.baseUrl = 'http://localhost:3000' // TODO: change this
+    this.baseUrl = 'https://railslistapp.herokuapp.com' // TODO: change this
     this.handleInputChange = this.handleInputChange.bind(this);
     this.addItemToList = this.addItemToList.bind(this);
   }
